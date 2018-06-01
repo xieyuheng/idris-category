@@ -46,18 +46,43 @@ NatLessThen l r = NatOrder (S l) r
 archimedeanPropertyNat : (n : Nat) -> (m : Nat ** NatLessThen n m)
 archimedeanPropertyNat n = (S n ** reflexiveNatOrder (S n))
 
-Category Nat NatOrder where
+namespace NatCat
+
+  identity : (a : Nat) -> NatOrder a a
   identity = reflexiveNatOrder
+
+  compose
+    : NatOrder a b ->
+      NatOrder b c ->
+      NatOrder a c
   compose = transitiveNatOrder
 
+  identityLeft
+    : (f : NatOrder a b) ->
+      compose (identity a) f = f
   identityLeft ZeroOrder = Refl
   identityLeft (SuccOrder x) =
-    cong {f = SuccOrder} (identityLeft x)
+    cong (identityLeft x)
 
+  identityRight
+    : (f : NatOrder a b) ->
+      compose f (identity b) = f
   identityRight ZeroOrder = Refl
   identityRight (SuccOrder x) =
-    cong {f = SuccOrder} (identityRight x)
+    cong (identityRight x)
 
+  composeAssociative
+    : (f : NatOrder a b) ->
+      (g : NatOrder b c) ->
+      (h : NatOrder c d) ->
+      compose f (compose g h) = compose (compose f g) h
   composeAssociative ZeroOrder _ _ = Refl
   composeAssociative (SuccOrder f) (SuccOrder g) (SuccOrder h) =
-    cong {f = SuccOrder} (composeAssociative f g h)
+    cong (composeAssociative f g h)
+
+Category Nat NatOrder where
+  identity = NatCat.identity
+  compose = NatCat.compose
+  identityLeft = NatCat.identityLeft
+  identityRight = NatCat.identityRight
+  composeAssociative = NatCat.composeAssociative
