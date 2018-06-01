@@ -61,3 +61,9 @@ Category Nat NatOrder where
   composeAssociative ZeroOrder _ _ = Refl
   composeAssociative (SuccOrder f) (SuccOrder g) (SuccOrder h) =
     cong {f = SuccOrder} (composeAssociative f g h)
+
+but in the implementation of the interface I have ::
+  identity = reflexiveNatOrder   and   compose = transitiveNatOrder
+
+Type mismatch between `compose (identity l) x`
+and `transitiveNatOrder (reflexiveNatOrder l) x`
