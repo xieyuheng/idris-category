@@ -1,19 +1,4 @@
-a.out
-
-*.o
-*.so
-
-*~
+*.ibc
 
 *#*
-
 .#*
-
-oprofile_data/
-gmon.out
-
-core.jojo.*
-vgcore.*
-
-__pycache__/
-.cache/
