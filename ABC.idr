@@ -2,7 +2,7 @@ module ABC
 
 import Category
 
--- directed total graph with three node A, B, C
+-- directed total graph with three nodes -- A, B, C
 
 %default total
 
