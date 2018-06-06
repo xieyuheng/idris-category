@@ -18,29 +18,27 @@ namespace NatArrowCat
       NatArrow a c
   compose (GetNat k) (GetNat j) = GetNat (k + j)
 
-  -- identityLeft
-  --   : (f : NatArrow a b) ->
-  --     compose (identity a) f = f
-  -- identityLeft (GetNat k) = cong () Refl
+  identityLeft
+    : (f : NatArrow a b) ->
+      compose (identity a) f = f
+  identityLeft (GetNat k) = cong (plusZeroLeftNeutral k)
 
-  -- cIdLeft  (getNat f) = cong (plusZeroLeftNeutral  f)
-  -- cIdRight (getNat f) = cong (plusZeroRightNeutral f)
-  -- cCompAssociative (getNat f) (getNat g) (getNat h) =
-  --   cong (plusAssociative h g f)
+  identityRight
+    : (f : NatArrow a b) ->
+      compose f (identity b) = f
+  identityRight (GetNat k) = cong (plusZeroRightNeutral k)
 
--- plusZeroLeftNeutral
--- plusZeroRightNeutral
--- plusAssociative
+  composeAssociative
+    : (f : NatArrow a b) ->
+      (g : NatArrow b c) ->
+      (h : NatArrow c d) ->
+      compose f (compose g h) = compose (compose f g) h
+  composeAssociative (GetNat f) (GetNat g) (GetNat h) =
+    cong (plusAssociative f g h)
 
 Category () NatArrow where
   identity = NatArrowCat.identity
   compose = NatArrowCat.compose
-  -- identityLeft = NatArrowCat.identityLeft
-  -- identityRight = NatArrowCat.identityRight
-  -- composeAssociative = NatArrowCat.composeAssociative
-
-
--- interface
---   Category Object Arrow =>
---   Terminal Object (Arrow : Object -> Object -> Type)
--- where
+  identityLeft = NatArrowCat.identityLeft
+  identityRight = NatArrowCat.identityRight
+  composeAssociative = NatArrowCat.composeAssociative
