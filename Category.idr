@@ -4,22 +4,36 @@ module Category
 
 export
 interface
-  Category Object (Arrow : Object -> Object -> Type)
+  Category object (arrow : object -> object -> Type)
 where
   identity
-    : (a : Object) -> Arrow a a
+    : (a : object) -> arrow a a
   compose
-    : Arrow a b ->
-      Arrow b c ->
-      Arrow a c
+    : arrow a b ->
+      arrow b c ->
+      arrow a c
   identityLeft
-    : (f : Arrow a b) ->
+    : (f : arrow a b) ->
       compose (identity a) f = f
   identityRight
-    : (f : Arrow a b) ->
+    : (f : arrow a b) ->
       compose f (identity b) = f
   composeAssociative
-    : (f : Arrow a b) ->
-      (g : Arrow b c) ->
-      (h : Arrow c d) ->
+    : (f : arrow a b) ->
+      (g : arrow b c) ->
+      (h : arrow c d) ->
       compose f (compose g h) = compose (compose f g) h
+
+-- export
+-- Inverse
+--   : (Category object arrow) =>
+--     (f : arrow a b) ->
+--     (g : arrow b a) -> Type
+-- Inverse {a} {b} f g = (?x = ?y)
+
+-- export
+-- Inverse
+--   : (Category object arrow) =>
+--     (f : arrow a b) ->
+--     (g : arrow b a) ->
+--     (compose f g) = (identity a)
