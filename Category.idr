@@ -2,7 +2,6 @@ module Category
 
 %default total
 
-
 -- record Category where
 --   constructor MkCategory
 --   object : Type
