@@ -1,3 +1,3 @@
-# Cat
+# Idris Cats
 
 Category Theory in Idris
