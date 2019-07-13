@@ -31,31 +31,31 @@ namespace NatOrderCat
   identity : (a : Nat) -> NatOrder a a
   identity = reflexiveNatOrder
 
-  compose
-    : NatOrder a b ->
-      NatOrder b c ->
-      NatOrder a c
+  compose :
+    NatOrder a b ->
+    NatOrder b c ->
+    NatOrder a c
   compose = transitiveNatOrder
 
-  identityLeft
-    : (f : NatOrder a b) ->
-      compose (identity a) f = f
+  identityLeft :
+    (f : NatOrder a b) ->
+    compose (identity a) f = f
   identityLeft ZeroOrder = Refl
   identityLeft (SuccOrder x) =
     cong (identityLeft x)
 
-  identityRight
-    : (f : NatOrder a b) ->
-      compose f (identity b) = f
+  identityRight :
+    (f : NatOrder a b) ->
+    compose f (identity b) = f
   identityRight ZeroOrder = Refl
   identityRight (SuccOrder x) =
     cong (identityRight x)
 
-  composeAssociative
-    : (f : NatOrder a b) ->
-      (g : NatOrder b c) ->
-      (h : NatOrder c d) ->
-      compose f (compose g h) = compose (compose f g) h
+  composeAssociative :
+    (f : NatOrder a b) ->
+    (g : NatOrder b c) ->
+    (h : NatOrder c d) ->
+    compose f (compose g h) = compose (compose f g) h
   composeAssociative ZeroOrder _ _ = Refl
   composeAssociative (SuccOrder f) (SuccOrder g) (SuccOrder h) =
     cong (composeAssociative f g h)
